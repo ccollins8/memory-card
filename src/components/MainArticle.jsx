@@ -20,12 +20,17 @@ function MainArticle() {
     }
     fetchPokemon()
   }, [])
+
+  function handleCardClick() {
+    const shuffledPokemon = [...pokemon].sort(() => Math.random() - 0.5);
+    setPokemon(shuffledPokemon)
+  }
     
   return (
     <>
       <div id="card-grid">
         {pokemon.map((poke) => (
-          <Card key={poke.name} poke={poke} /> // Send the entire poke object
+          <Card key={poke.name} poke={poke} onClick={handleCardClick} /> // Send the entire poke object
         ))}
       </div>
     </>
