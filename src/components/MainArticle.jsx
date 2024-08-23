@@ -2,9 +2,12 @@ import { useState, useEffect } from 'react';
 import Card from './Card'
 import '../styles/MainArticle.css'
 
-function MainArticle() {
+function MainArticle(props) {
+
+  const {score, setScore, bestScore, setBestScore} = props
   
   const [pokemon, setPokemon] = useState([]);
+  const [clickedPokemon, setClickedPokemon] = useState([])
 
   useEffect(() => {
     async function fetchPokemon() {
@@ -21,7 +24,26 @@ function MainArticle() {
     fetchPokemon()
   }, [])
 
-  function handleCardClick() {
+  useEffect(() => {
+    if (score > bestScore) {
+      setBestScore(score);
+    }
+  }, [score]);
+
+  function handleCardClick(poke) {
+
+
+    if (!clickedPokemon.includes(poke.name)) {
+      setClickedPokemon([...clickedPokemon, poke.name]); // Update state
+      setScore((prevScore) => prevScore + 1)
+    } else {
+      setScore(0)
+      setClickedPokemon([])
+    }
+    
+
+
+    // handle card shuflle
     const shuffledPokemon = [...pokemon].sort(() => Math.random() - 0.5);
     setPokemon(shuffledPokemon)
   }
@@ -30,7 +52,9 @@ function MainArticle() {
     <>
       <div id="card-grid">
         {pokemon.map((poke) => (
-          <Card key={poke.name} poke={poke} onClick={handleCardClick} /> // Send the entire poke object
+          // <Card key={poke.name} poke={poke} onClick={handleCardClick} /> // Send the entire poke object
+          <Card key={poke.name} poke={poke} onClick={() => handleCardClick(poke)} />
+
         ))}
       </div>
     </>

@@ -15,6 +15,7 @@ header {
   
   .right-section {
     text-align: right;
+    flex-shrink: 0;
   }
   
   h1 {

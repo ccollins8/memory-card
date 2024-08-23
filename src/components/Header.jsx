@@ -2,10 +2,8 @@ import '../styles/Header.css'
 
 import { useState, useEffect } from "react"
 
-function Header() {
-
-    const [score, setScore] = useState(0)
-    const [bestScore, setBestScore] = useState(0)
+function Header({score,bestScore}) {
+    
 
     return (
         <>
